@@ -13,6 +13,10 @@ import { Offer } from './offers/entities/offer.entity';
 import { Wishlist } from './wishlists/entities/wishlist.entity';
 import { ConfigModule } from '@nestjs/config';
 
+require('dotenv').config();
+const { POSTGRES_PASSWORD, POSTGRES_USER, POSTGRES_HOST, POSTGRES_DB } =
+  process.env;
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -21,11 +25,11 @@ import { ConfigModule } from '@nestjs/config';
     UsersModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: POSTGRES_HOST,
       port: 5432,
-      username: 'student',
-      password: 'student',
-      database: 'kupipodariday',
+      username: POSTGRES_USER,
+      password: POSTGRES_PASSWORD,
+      database: POSTGRES_DB,
       entities: [User, Wish, Offer, Wishlist],
       synchronize: true,
     }),
